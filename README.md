@@ -7,10 +7,9 @@
 ---
 
 # 🧠 SchemaScope – Data Contract & Schema Assistant
-
 <p align="center">
-  <img src="images/banner.png" alt="SchemaScope Banner"/>
-</p>
+<img width="500" height="250" alt="banner" src="https://github.com/user-attachments/assets/774c37bd-1997-4bf8-a512-a3add4667edf" />
+
 
 <p align="center">
 
@@ -78,8 +77,11 @@ Place all your SQL models in `/sql/` and the app will produce:
 ## 🖼️ Screenshots
 
 ### **Schema Chat Interface**
+<img width="500" height="250" alt="image" src="https://github.com/user-attachments/assets/dcd200ec-0a7d-4c0b-abff-0fafbb7f7dc9" />
 
 ### **Lineage Graph**
+<img width="500" height="250" alt="image" src="https://github.com/user-attachments/assets/606723c7-56ad-45b6-8138-c3f009baffdc" />
+
 
 ---
 
@@ -248,8 +250,8 @@ If you'd like to contribute:
 ## 📧 Contact
 
 **Sai Kumar**
-🔗 LinkedIn: *your link here*
-📬 Email: *your email here*
+🔗 LinkedIn: *[your link here](https://www.linkedin.com/in/saip01/)*
+📬 Email: *saikumarp919@gmail.com*
 
 ---
 
@@ -258,5 +260,6 @@ If you'd like to contribute:
 MIT License.
 
 ---
+
 
 
