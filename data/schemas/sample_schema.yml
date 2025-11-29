@@ -1,0 +1,60 @@
+entities:
+  - name: customers
+    entity_type: table
+    description: Master table of all customers in the system.
+    upstream: ["stg_customers"]
+    downstream: ["customer_created_event"]
+    fields:
+      - name: id
+        type: integer
+        required: true
+        pii: false
+        description: Unique customer identifier.
+
+      - name: full_name
+        type: string
+        required: false
+        pii: false
+        description: Customer full name.
+
+      - name: email
+        type: string
+        required: true
+        pii: true
+        description: Customer email address.
+
+      - name: address
+        type: string
+        required: false
+        pii: true
+        description: Customer postal address.
+
+      - name: credit_score
+        type: integer
+        required: false
+        pii: false
+        description: Credit score assigned by risk system.
+
+  - name: customer_created_event
+    entity_type: event
+    description: Event emitted when a new customer is created.
+    upstream: ["customers"]
+    downstream: []
+    fields:
+      - name: customer_id
+        type: integer
+        required: true
+        pii: false
+        description: ID of the customer from customers table.
+
+      - name: email
+        type: string
+        required: true
+        pii: true
+        description: Email of the newly created customer.
+
+      - name: created_at
+        type: timestamp
+        required: true
+        pii: false
+        description: Time when the customer record was created.

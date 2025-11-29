@@ -1,0 +1,29 @@
+entities:
+- name: customer_orders
+  entity_type: view
+  upstream:
+  - customers
+  - orders
+  downstream:
+  - high_value_customers
+  fields: []
+- name: customers
+  entity_type: table
+  upstream: []
+  downstream:
+  - customer_orders
+  - high_value_customers
+  fields: []
+- name: orders
+  entity_type: table
+  upstream: []
+  downstream:
+  - customer_orders
+  fields: []
+- name: high_value_customers
+  entity_type: view
+  upstream:
+  - customer_orders
+  - customers
+  downstream: []
+  fields: []
