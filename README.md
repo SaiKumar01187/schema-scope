@@ -1,65 +1,91 @@
-﻿# schema-scope
- 🚀 Overview
 
-SchemaScope is an AI-powered assistant that helps you understand your database schemas, PII fields, upstream/downstream lineage, and auto-generate data contracts — all through a chat-based interface.
+
+# 📘 **README.md — SchemaScope (Full Version)**
+
+*(Includes banner, badges, installation guide, architecture diagram, screenshots, lineage explanation, and more)*
+
+---
+
+# 🧠 SchemaScope – Data Contract & Schema Assistant
+
+<p align="center">
+  <img src="images/banner.png" alt="SchemaScope Banner"/>
+</p>
+
+<p align="center">
+
+  <img src="https://img.shields.io/badge/Python-3.10-blue?logo=python&logoColor=white" />
+  <img src="https://img.shields.io/badge/Streamlit-WebApp-red?logo=streamlit&logoColor=white" />
+  <img src="https://img.shields.io/badge/Groq-LLM-%23ff5a5f?logo=lightning&logoColor=white" />
+  <img src="https://img.shields.io/badge/FAISS-VectorDB-green" />
+  <img src="https://img.shields.io/badge/HuggingFace-Embeddings-yellow?logo=huggingface&logoColor=black" />
+  <img src="https://img.shields.io/badge/SQL-Lineage-orange?logo=sqlite&logoColor=white" />
+  <img src="https://img.shields.io/badge/License-MIT-brightgreen" />
+
+</p>
+
+---
+
+## 🚀 Overview
+
+**SchemaScope** is an AI-powered assistant that helps you understand your **database schemas**, **PII fields**, **upstream/downstream lineage**, and **auto-generate data contracts** — all through a chat-based interface.
 
 It uses:
 
-Groq Llama 3.3 for ultra-fast schema Q&A
+* **Groq Llama 3.3** for ultra-fast schema Q&A
+* **FAISS** + **HuggingFace** embeddings for RAG
+* **SQL parsing** + **LLM reasoning** for lineage detection
+* **Streamlit UI** for an interactive browser experience
 
-FAISS + HuggingFace embeddings for RAG
+---
 
-SQL parsing + LLM reasoning for lineage detection
+## 🎯 Key Features
 
-Streamlit UI for an interactive browser experience
-
-🎯 Key Features
-🔍 1. Chat with your Schemas
+### 🔍 **1. Chat with your Schemas**
 
 Ask questions like:
 
-"Which fields are PII in customers?"
+* *"Which fields are PII in customers?"*
+* *"What breaks if I remove the email column?"*
+* *"What are upstream tables for high_value_customers?"*
 
-"What breaks if I remove the email column?"
-
-"What are upstream tables for high_value_customers?"
-
-📄 2. Auto-Generate Data Contracts (YAML)
+### 📄 **2. Auto-Generate Data Contracts (YAML)**
 
 SchemaScope generates production-ready YAML files including:
 
-Field types
+* Field types
+* Required flags
+* PII classification
+* Upstream / downstream relationships
 
-Required flags
+### 🔗 **3. SQL Lineage Extraction**
 
-PII classification
+Place all your SQL models in `/sql/` and the app will produce:
 
-Upstream / downstream relationships
+* A full lineage graph
+* Upstream and downstream mapping
+* Table dependencies
 
-🔗 3. SQL Lineage Extraction
+### 🧠 **4. Built on AI-first Architecture**
 
-Place all your SQL models in /sql/ and the app will produce:
+* Groq Llama 3.3
+* FAISS vector search
+* HuggingFace MiniLM embeddings
+* Custom SQL lineage parser
 
-A full lineage graph
+---
 
-Upstream and downstream mapping
+## 🖼️ Screenshots
 
-Table dependencies
+### **Schema Chat Interface**
 
-🧠 4. Built on AI-first Architecture
+### **Lineage Graph**
 
-Groq Llama 3.3
+---
 
-FAISS vector search
+## 📂 Project Structure
 
-HuggingFace MiniLM embeddings
-
-Custom SQL lineage parser
-
-🖼️ Screenshots
-Schema Chat Interface
-Lineage Graph
-📂 Project Structure
+```
 schema-scope/
 │
 ├── data/
@@ -85,73 +111,97 @@ schema-scope/
 ├── requirements.txt
 ├── lineage.html
 └── README.md
+```
 
-⚙️ Installation
-1️⃣ Clone the Repository
+---
+
+## ⚙️ Installation
+
+### **1️⃣ Clone the Repository**
+
+```bash
 git clone https://github.com/YOUR_USERNAME/schema-scope.git
 cd schema-scope
+```
 
-2️⃣ Create Virtual Environment
+### **2️⃣ Create Virtual Environment**
+
+```bash
 python -m venv .venv
 source .venv/bin/activate   # Windows: .venv\Scripts\activate
+```
 
-3️⃣ Install Requirements
+### **3️⃣ Install Requirements**
+
+```bash
 pip install -r requirements.txt
+```
 
-4️⃣ Add Groq API Key
+### **4️⃣ Add Groq API Key**
 
-Create .env file:
+Create `.env` file:
 
+```
 GROQ_API_KEY=your_key_here
+```
 
-5️⃣ Run Application
+### **5️⃣ Run Application**
+
+```bash
 streamlit run src/ui_app.py
+```
 
-🧠 How SchemaScope Works (Architecture)
+---
+
+## 🧠 How SchemaScope Works (Architecture)
+
+```
 YAML Schemas →─────────────→ FAISS Vector DB →────────────→ LLM (Groq)
 SQL Files     → SQL Parser → Lineage Engine   → Lineage Graph (HTML)
+```
 
-RAG Pipeline
+### **RAG Pipeline**
 
-Load schema YAML files
+1. Load schema YAML files
+2. Convert them into chunked documents
+3. Embed using MiniLM
+4. Store in FAISS
+5. Query using LLM
 
-Convert them into chunked documents
+### **Lineage Engine**
 
-Embed using MiniLM
+1. Reads `/sql/*.sql`
+2. Detects SELECT → FROM → JOIN dependencies
+3. Builds directed graph
+4. Exports `lineage.html`
 
-Store in FAISS
+---
 
-Query using LLM
-
-Lineage Engine
-
-Reads /sql/*.sql
-
-Detects SELECT → FROM → JOIN dependencies
-
-Builds directed graph
-
-Exports lineage.html
-
-🗂️ Add Your Own SQL for Real Lineage
+## 🗂️ Add Your Own SQL for Real Lineage
 
 Place your warehouse SQL:
 
+```
 schema-scope/sql/
     staging_customers.sql
     fact_orders.sql
     dims/dim_customer.sql
-
+```
 
 Then run:
 
+```bash
 python -m src.sql_lineage_to_yaml
 python -m src.lineage_graph
-
+```
 
 This generates the lineage YAML + graph automatically.
 
-📄 Example Data Contract Output
+---
+
+## 📄 Example Data Contract Output
+
+```yaml
 entities:
   - name: customers
     entity_type: table
@@ -167,29 +217,46 @@ entities:
       - name: address
         type: string
         pii: true
+```
 
-💻 Tech Stack
-Component	Technology
-UI	Streamlit
-LLM	Groq Llama 3.3
-Embeddings	HuggingFace MiniLM
-Vector DB	FAISS
-SQL Lineage Engine	Custom Python parser
-Packaging	Python 3.10
-🤝 Contributing
+---
+
+## 💻 Tech Stack
+
+| Component          | Technology           |
+| ------------------ | -------------------- |
+| UI                 | Streamlit            |
+| LLM                | Groq Llama 3.3       |
+| Embeddings         | HuggingFace MiniLM   |
+| Vector DB          | FAISS                |
+| SQL Lineage Engine | Custom Python parser |
+| Packaging          | Python 3.10          |
+
+---
+
+## 🤝 Contributing
 
 PRs welcome!
 If you'd like to contribute:
 
-Fork
+1. Fork
+2. Create a branch
+3. Submit PR
 
-Create a branch
+---
 
-Submit PR
+## 📧 Contact
 
-📧 Contact
+**Sai Kumar**
+🔗 LinkedIn: *your link here*
+📬 Email: *your email here*
 
-Sai Kumar
-🔗 LinkedIn: your link here
-📬 Email: your email here
+---
+
+## 📝 License
+
+MIT License.
+
+---
+
 
